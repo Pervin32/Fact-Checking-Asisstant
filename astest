@@ -1,0 +1,111 @@
+firebase-debug.log
+
+
+
+[debug] [2024-11-11T21:42:29.508Z] ----------------------------------------------------------------------
+[debug] [2024-11-11T21:42:29.510Z] Command:       /opt/homebrew/Cellar/node/22.9.0/bin/node /opt/homebrew/bin/firebase init hosting
+[debug] [2024-11-11T21:42:29.510Z] CLI Version:   13.24.2
+[debug] [2024-11-11T21:42:29.510Z] Platform:      darwin
+[debug] [2024-11-11T21:42:29.510Z] Node Version:  v22.9.0
+[debug] [2024-11-11T21:42:29.511Z] Time:          Tue Nov 12 2024 01:42:29 GMT+0400 (Azerbaijan Standard Time)
+[debug] [2024-11-11T21:42:29.511Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-11-11T21:42:29.515Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-11-11T21:42:29.515Z] > authorizing via signed-in user (pervinsirinova2@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/parvinshirinova/Desktop/Fact-checking-asisstant
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2024-11-11T21:43:35.085Z] ----------------------------------------------------------------------
+[debug] [2024-11-11T21:43:35.087Z] Command:       /opt/homebrew/Cellar/node/22.9.0/bin/node /opt/homebrew/bin/firebase init hosting
+[debug] [2024-11-11T21:43:35.087Z] CLI Version:   13.24.2
+[debug] [2024-11-11T21:43:35.087Z] Platform:      darwin
+[debug] [2024-11-11T21:43:35.087Z] Node Version:  v22.9.0
+[debug] [2024-11-11T21:43:35.087Z] Time:          Tue Nov 12 2024 01:43:35 GMT+0400 (Azerbaijan Standard Time)
+[debug] [2024-11-11T21:43:35.087Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2024-11-11T21:43:35.091Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2024-11-11T21:43:35.092Z] > authorizing via signed-in user (pervinsirinova2@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  /Users/parvinshirinova/Desktop/Fact-checking-asisstant
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2024-11-11T21:43:38.960Z] Checked if tokens are valid: true, expires at: 1731362832828
+[debug] [2024-11-11T21:43:38.961Z] Checked if tokens are valid: true, expires at: 1731362832828
+[debug] [2024-11-11T21:43:38.963Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2024-11-11T21:43:39.660Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2024-11-11T21:43:39.660Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[info] i  Using project fact-checking-asisstant (Fact-Checking-Asisstant) 
+[info] 
+=== Hosting Setup
+[debug] [2024-11-11T21:43:43.463Z] Checked if tokens are valid: true, expires at: 1731362832828
+[debug] [2024-11-11T21:43:43.463Z] Checked if tokens are valid: true, expires at: 1731362832828
+[debug] [2024-11-11T21:43:43.463Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/fact-checking-asisstant [none]
+[debug] [2024-11-11T21:43:43.854Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/fact-checking-asisstant 200
+[debug] [2024-11-11T21:43:43.854Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/fact-checking-asisstant {"projectId":"fact-checking-asisstant","projectNumber":"543735020388","displayName":"Fact-Checking-Asisstant","name":"projects/fact-checking-asisstant","resources":{"hostingSite":"fact-checking-asisstant"},"state":"ACTIVE","etag":"1_ca147107-37ab-4e0a-a746-7f5a6f8f696a"}
+[info] 
+[info] Your public directory is the folder (relative to your project directory) that
+[info] will contain Hosting assets to be uploaded with firebase deploy. If you
+[info] have a build process for your assets, use your build's output directory.
+[info] 
+[debug] [2024-11-11T21:44:03.805Z] >>> [apiv2][query] GET https://www.gstatic.com/firebasejs/releases.json [none]
+[debug] [2024-11-11T21:44:03.989Z] <<< [apiv2][status] GET https://www.gstatic.com/firebasejs/releases.json 200
+[debug] [2024-11-11T21:44:03.990Z] <<< [apiv2][body] GET https://www.gstatic.com/firebasejs/releases.json {"current":{"version":"11.0.1","browserURL":"https://www.gstatic.com/firebasejs/11.0.1/firebase.js","packageURL":"https://www.gstatic.com/firebasejs/11.0.1/firebase.tgz"},"live":{"version":"11.0","browserURL":"https://www.gstatic.com/firebasejs/live/11.0/firebase.js","packageURL":"https://www.gstatic.com/firebasejs/live/11.0/firebase.tgz"},"components":{"analytics":"https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js","app":"https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js","app-check":"https://www.gstatic.com/firebasejs/11.0.1/firebase-app-check.js","auth":"https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js","auth/cordova":"https://www.gstatic.com/firebasejs/11.0.1/firebase-auth/cordova.js","auth/web-extension":"https://www.gstatic.com/firebasejs/11.0.1/firebase-auth/web-extension.js","functions":"https://www.gstatic.com/firebasejs/11.0.1/firebase-functions.js","firestore":"https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js","firestore/lite":"https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore/lite.js","installations":"https://www.gstatic.com/firebasejs/11.0.1/firebase-installations.js","storage":"https://www.gstatic.com/firebasejs/11.0.1/firebase-storage.js","performance":"https://www.gstatic.com/firebasejs/11.0.1/firebase-performance.js","remote-config":"https://www.gstatic.com/firebasejs/11.0.1/firebase-remote-config.js","messaging":"https://www.gstatic.com/firebasejs/11.0.1/firebase-messaging.js","messaging/sw":"https://www.gstatic.com/firebasejs/11.0.1/firebase-messaging/sw.js","database":"https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js","vertexai":"https://www.gstatic.com/firebasejs/11.0.1/firebase-vertexai.js","data-connect":"https://www.gstatic.com/firebasejs/11.0.1/firebase-data-connect.js","firestore.memory":"https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.memory.js"}}
+[info] ✔  Wrote public/index.html 
+[info] 
+[info] i  Detected a .git folder at /Users/parvinshirinova/Desktop/Fact-checking-asisstant 
+[info] i  Authorizing with GitHub to upload your service account to a GitHub repository's secrets store. 
+[info] 
+[info] Visit this URL on this device to log in:
+[info] https://github.com/login/oauth/authorize?client_id=89cf50f02ac6aaed3484&state=746636825&redirect_uri=http%3A%2F%2Flocalhost%3A9005&scope=read%3Auser%20repo%20public_repo
+[info] 
+[info] Waiting for authentication...
+[debug] [2024-11-11T21:44:24.352Z] >>> [apiv2][query] POST https://github.com/login/oauth/access_token [none]
+[debug] [2024-11-11T21:44:24.355Z] >>> [apiv2][body] POST https://github.com/login/oauth/access_token [stream]
+[debug] [2024-11-11T21:44:24.776Z] <<< [apiv2][status] POST https://github.com/login/oauth/access_token 200
+[debug] [2024-11-11T21:44:24.776Z] <<< [apiv2][body] POST https://github.com/login/oauth/access_token {"access_token":"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","token_type":"bearer","scope":"read:user,repo"}
+[debug] [2024-11-11T21:44:24.784Z] >>> [apiv2][query] GET https://api.github.com/user [none]
+[debug] [2024-11-11T21:44:25.229Z] <<< [apiv2][status] GET https://api.github.com/user 200
+[debug] [2024-11-11T21:44:25.229Z] <<< [apiv2][body] GET https://api.github.com/user {"login":"Pervin32","id":108881265,"node_id":"U_kgDOBn1lcQ","avatar_url":"https://avatars.githubusercontent.com/u/108881265?v=4","gravatar_id":"","url":"https://api.github.com/users/Pervin32","html_url":"https://github.com/Pervin32","followers_url":"https://api.github.com/users/Pervin32/followers","following_url":"https://api.github.com/users/Pervin32/following{/other_user}","gists_url":"https://api.github.com/users/Pervin32/gists{/gist_id}","starred_url":"https://api.github.com/users/Pervin32/starred{/owner}{/repo}","subscriptions_url":"https://api.github.com/users/Pervin32/subscriptions","organizations_url":"https://api.github.com/users/Pervin32/orgs","repos_url":"https://api.github.com/users/Pervin32/repos","events_url":"https://api.github.com/users/Pervin32/events{/privacy}","received_events_url":"https://api.github.com/users/Pervin32/received_events","type":"User","user_view_type":"private","site_admin":false,"name":"Parvin Shirinova","company":"Aserbaijan","blog":"","location":"Baki","email":null,"hireable":null,"bio":"Front End Devoloper","twitter_username":null,"notification_email":null,"public_repos":22,"public_gists":0,"followers":1,"following":19,"created_at":"2022-07-07T13:44:52Z","updated_at":"2024-11-01T13:14:40Z","private_gists":31,"total_private_repos":3,"owned_private_repos":3,"disk_usage":53392,"collaborators":0,"two_factor_authentication":false,"plan":{"name":"free","space":976562499,"collaborators":0,"private_repos":10000}}
+[info] 
+[info] ✔  Success! Logged into GitHub as Pervin32 
+[info] 
+[debug] [2024-11-11T21:44:36.228Z] >>> [apiv2][query] GET https://api.github.com/repos/firebase deploy/actions/secrets/public-key type=owner
+[debug] [2024-11-11T21:44:36.604Z] <<< [apiv2][status] GET https://api.github.com/repos/firebase deploy/actions/secrets/public-key 404
+[debug] [2024-11-11T21:44:36.605Z] <<< [apiv2][body] GET https://api.github.com/repos/firebase deploy/actions/secrets/public-key {"message":"Not Found","documentation_url":"https://docs.github.com/rest","status":"404"}
+[info] 
+[info] 
+[error] ⚠  The provided authorization cannot be used with this repository. If this repository is in an organization, did you remember to grant access? 
+[info] 
+[info] i  Action required: Visit this URL to ensure access has been granted to the appropriate organization(s) for the Firebase CLI GitHub OAuth App: 
+[info] https://github.com/settings/connections/applications/89cf50f02ac6aaed3484
+[info] 
