@@ -1,84 +1,84 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState } from 'react';
+import enter from '@/assets/img/enter.svg';
+import search from '@/assets/img/search.svg';
+import { Link, useNavigate } from 'react-router-dom';
 
-// Doğruluq təhlili üçün sadə qaydalarla bir funksiya
-const calculateScore = (text) => {
-    let score = 50; // Başlanğıc dəyəri
-    const trustedSources = ["gov", "edu", "org", "az"]; // Güvənilən domenlər
-    const lowerCaseText = text.toLowerCase();
+const Text_Input = ({ addSearchToHistory, username }) => {
+  const [searchText, setSearchText] = useState(''); // Axtarış mətni üçün state
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
-    // Dövlət saytlarına istinad varsa, bal artır
-    if (trustedSources.some(source => lowerCaseText.includes(source))) {
-        score += 30;
-    }
+  const handleSearch = () => {
+    if (searchText.trim() === '') return; // Mətni boşdursa, axtarış etmə
+    setLoading(true);
 
-    // Sosial media və ya qeyri-rəsmi mənbələr varsa, bal azaldılır
-    if (lowerCaseText.includes("facebook") || lowerCaseText.includes("twitter")) {
-        score -= 20;
-    }
-
-    return Math.max(0, Math.min(score, 100)); // Bal 0-100 aralığında olmalıdır
-};
-
-const getCategoryScore = (score) => {
-    if (score === 0) return 'text-black';
-    if (score >= 80) return 'text-green-500';
-    if (score >= 60) return 'text-yellow-500';
+    addSearchToHistory(searchText); // Axtarış tarixçəsinə əlavə et
     
-    return 'text-red-500';
-};
+    // Keçid ediləcək məlumatlar
+    const loadingData = {
+      searchText,
+      score: 85,
+      sources: [
+        { title: 'Rəsmi Qurumlar', score: 30, description: 'Rəsmi dövlət qurumlarına istinad edilmişdir.' },
+        { title: 'Ekspert Rəyi', score: 18, description: 'Etibarlı ekspertlərin rəyi mövcuddur.' },
+        { title: 'Statistika', score: 16, description: 'Etibarlı statistika istifadə olunmuşdur.' },
+      ],
+      recommendations: [
+        'Daha etibarlı mənbələr istifadə edin.',
+        'Şəxslərin rəylərinə diqqət yetirin.',
+        'Sosial mediadan məlumatları ehtiyatla istifadə edin.'
+      ]
+    };
 
-const ResultPage = ({ groupedHistory }) => {
-    const location = useLocation();
-    const { sources, recommendations } = location.state || { sources: [], recommendations: [] };
-    const [expandedItems, setExpandedItems] = useState({});
-    const [latestSearch, setLatestSearch] = useState({ text: null, url: null });
-    const [score, setScore] = useState(0); // Əvvəlcədən müəyyən edilmiş score
+    // `/result` səhifəsinə yönləndirmə, loadingData ilə birlikdə
+    navigate('/result', { state: loadingData });
+  };
 
-    useEffect(() => {
-        const allSearches = Object.values(groupedHistory).flat();
-        if (allSearches.length > 0) {
-            const latest = allSearches[allSearches.length - 1];
-            setLatestSearch({ text: latest.text, url: latest.url });
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      navigate('/loading'); // Navigate to loading page when Enter is pressed
+    }
+  };
 
-            // Mətnin doğruluq analizi əsasında yeni score təyin et
-            const newScore = calculateScore(latest.text);
-            setScore(newScore);
-        }
-    }, [groupedHistory]);
+  return (
+    <div>
+      {/* Üst butonlar */}
+      <div className="flex justify-end gap-6 pt-10 pr-8">
+        {username ? (
+          <div className="bg-blue w-[100px] sm:w-[168px] h-9 text-white rounded-full text-center text-sm sm:text-base leading-[30px] flex items-center justify-center">
+            {username}
+          </div>
+        ) : (
+          <Link
+            to="/loading"
+            className="bg-blue w-[100px] sm:w-[168px] h-9 text-white rounded-full text-center text-sm sm:text-base leading-[30px] flex items-center justify-center"
+          >
+            A
+          </Link>
+        )}
+        <Link to="/registration" >
+        <img src={enter} alt="enter" className="size-8 md:size-9" /> </Link>
+      </div>
 
-
-
-    
-    return (
-        <div className="flex flex-col text-center min-h-screen p-6">
-            <div className="mt-[74px] text-center w-[246px] h-[27px] rounded-[17px] mx-auto bg-red-400 "></div>
-
-            <div className="mb-12 mt-[53px] flex flex-col justify-center items-center text-center">
-                <div className={`font-semibold border-t border-black w-[234px] text-5xl leading-[72px] mx-auto  pt-[19px] ${getCategoryScore(score)}`}>
-                    {score}
-                </div>
-
-                <h2 className="text-xl font-semibold mb-2">Ümumi bal</h2>
-
-                <div className="mt-4 p-2 rounded-md text-center">
-                    <p className="text-sm font-normal text-[15px] leading-6 w-[576px] ">
-                        Daxil etdiyin mətn/link rəsmi dövlət qurumlarına, hökumət saytlarına, qanunvericilik orqanlarına və ya digər dövlət müəssisələrinə istinad edib deyə faktları etibarlı edir.
-                        Məqalədə etibarlı şəxslərdən, mövzu ilə əlaqəli mütəxəssislərin fikirlərinə yer verilib. Amma son abzasda sosial mediaya istinad edilməsi və verilmiş rəqəmlərin rəsmi mənbələrdən olmaması bəzi faktları şübhə altına ala bilir.
-                        Buna görə, diqqətli olmanı tövsiyə edirik.
-                    </p>
-
-                    {latestSearch.url && (
-                        <a href={latestSearch.url} className="text-blue-500 text-xs md:text-sm mt-1 block">
-                            {latestSearch.url}
-                        </a>
-                    )}
-                </div>
-
-                <div className="border border-black w-[744px] h-[174px] rounded-2xl mt-12"></div>
-            </div>
+      {/* Search */}
+      <div className="max-w-[744px] w-full h-12 sm:h-[52px] flex items-center justify-between mx-auto mt-[150px] sm:mt-[375px] border px-4 sm:px-6 rounded-lg sm:rounded-[16px] text-[#8D8D8D]">
+        <input
+          type="text"
+          placeholder="İnformasiya və ya keçid linkini bura daxil edin!"
+          className="w-full text-sm sm:text-lg leading-6 outline-none"
+          value={searchText} // Axtarış mətni state-ə bağlı
+          onChange={(e) => setSearchText(e.target.value)} // Mətni dəyişdikdə yeniləyir
+          onKeyDown={handleKeyPress} // Enter düyməsinə basıldıqda loading page-ə keçir
+        />
+        <div
+          className="bg-[#959595] w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center cursor-pointer"
+          onClick={handleSearch} // Axtarış düyməsinə basıldıqda handleSearch çağırılır
+        >
+          <img src={search} alt="search" className="w-4 h-4 sm:w-5 sm:h-5" />
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
-export default ResultPage;
+export default Text_Input;

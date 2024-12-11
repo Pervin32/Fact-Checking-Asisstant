@@ -5,38 +5,72 @@ import { Link, useNavigate } from 'react-router-dom';
 
 const Text_Input = ({ addSearchToHistory, username }) => {
   const [searchText, setSearchText] = useState(''); // Axtarış mətni üçün state
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSearch = () => {
-    if (searchText.trim() === '') return; // Mətni boşdursa, axtarış etmə
-    setLoading(true);
-
-    addSearchToHistory(searchText); // Axtarış tarixçəsinə əlavə et
-    
-    // Keçid ediləcək məlumatlar
-    const loadingData = {
-      searchText,
-      score: 85,
-      sources: [
-        { title: 'Rəsmi Qurumlar', score: 30, description: 'Rəsmi dövlət qurumlarına istinad edilmişdir.' },
-        { title: 'Ekspert Rəyi', score: 18, description: 'Etibarlı ekspertlərin rəyi mövcuddur.' },
-        { title: 'Statistika', score: 16, description: 'Etibarlı statistika istifadə olunmuşdur.' },
-      ],
-      recommendations: [
-        'Daha etibarlı mənbələr istifadə edin.',
-        'Şəxslərin rəylərinə diqqət yetirin.',
-        'Sosial mediadan məlumatları ehtiyatla istifadə edin.'
-      ]
-    };
-
-    // `/result` səhifəsinə yönləndirmə, loadingData ilə birlikdə
-    navigate('/result', { state: loadingData });
+  const handleSearch = async () => {
+    if (searchText.trim() === '') return; // Boş mətni yoxlayır
+  
+    try {
+      setIsLoading(true);
+  
+      // Proxy'dən keçən API sorğusu
+      const response = await fetch('http://localhost:3000/factcheck', { // Proxy server URL
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ fact: searchText }),
+      });
+  
+      const apiData = await response.json();
+  
+      // Hazırlanan məlumatlar API cavabına əsasən
+      const loadingData = {
+        searchText,
+        score: apiData.score,
+        sources: [
+          { title: 'Fact Check API', score: apiData.score, description: 'Automated fact-checking result' },
+        ],
+        recommendations: [
+          'Verify the information from multiple sources',
+          'Check the credibility of the original source',
+          'Consult expert opinions',
+        ],
+      };
+  
+      // Axtarışı tarixçəyə əlavə etmək
+      addSearchToHistory(searchText);
+  
+      // Yönləndirmə /result səhifəsinə
+      navigate('/result', { state: loadingData });
+    } catch (error) {
+      console.error('Fact checking error:', error);
+  
+      // Fallback error handling
+      const loadingData = {
+        searchText,
+        score: 50, // Neutral score for failed requests
+        sources: [
+          { title: 'Error', score: 0, description: 'Unable to verify fact' },
+        ],
+        recommendations: [
+          'Check your internet connection',
+          'Try again later',
+          'Verify information manually',
+        ],
+      };
+  
+      navigate('/result', { state: loadingData });
+    } finally {
+      setIsLoading(false);
+    }
   };
-
+  
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      navigate('/loading'); // Navigate to loading page when Enter is pressed
+      handleSearch();
+      navigate('/loading'); // Enter düyməsinə basıldıqda handleSearch funksiyası çağırılır
     }
   };
 
@@ -56,25 +90,36 @@ const Text_Input = ({ addSearchToHistory, username }) => {
             A
           </Link>
         )}
-        <Link to="/registration" >
-        <img src={enter} alt="enter" className="size-8 md:size-9" /> </Link>
+        <Link to="/registration">
+          <img src={enter} alt="enter" className="size-8 md:size-9" />
+        </Link>
       </div>
 
-      {/* Search */}
+      {/* Axtarış */}
       <div className="max-w-[744px] w-full h-12 sm:h-[52px] flex items-center justify-between mx-auto mt-[150px] sm:mt-[375px] border px-4 sm:px-6 rounded-lg sm:rounded-[16px] text-[#8D8D8D]">
         <input
           type="text"
           placeholder="İnformasiya və ya keçid linkini bura daxil edin!"
           className="w-full text-sm sm:text-lg leading-6 outline-none"
-          value={searchText} // Axtarış mətni state-ə bağlı
+          value={searchText} // Axtarış mətni
           onChange={(e) => setSearchText(e.target.value)} // Mətni dəyişdikdə yeniləyir
-          onKeyDown={handleKeyPress} // Enter düyməsinə basıldıqda loading page-ə keçir
+          onKeyDown={handleKeyPress} // Enter basıldıqda handleKeyPress çağırılır
+          disabled={isLoading}
         />
         <div
-          className="bg-[#959595] w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center cursor-pointer"
-          onClick={handleSearch} // Axtarış düyməsinə basıldıqda handleSearch çağırılır
+          className={`bg-[#959595] w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center cursor-pointer ${isLoading ? 'opacity-50' : ''}`}
+          onClick={!isLoading ? handleSearch : undefined} // Axtarış düyməsinə basıldıqda handleSearch çağırılır
         >
-          <img src={search} alt="search" className="w-4 h-4 sm:w-5 sm:h-5" />
+          {isLoading ? (
+            <div className="animate-spin">
+              <svg className="w-4 h-4 sm:w-5 sm:h-5 text-white" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            </div>
+          ) : (
+            <img src={search} alt="search" className="w-4 h-4 sm:w-5 sm:h-5" />
+          )}
         </div>
       </div>
     </div>
